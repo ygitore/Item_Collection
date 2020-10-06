@@ -1,17 +1,13 @@
-import Axios from 'axios';
 import React, { Component } from 'react';
 import './App.css';
 import SearchBar from './SearchBar';
-require('dotenv').config()
+import Unsplash from './api/Unsplash';
 
 class App extends Component {
   state = {images:[]}
   onFormSubmit = async term => {
-    const response = await Axios.get('https://api.unsplash.com/search/photos', {
-      params:{query:term},
-      headers:{
-        Authorization: `Client-ID ${REACT_APP_UNSPLASH_kEY}`
-      }
+    const response = await Unsplash.get('search/photos', {
+      params:{query:term},      
     })
     this.setState({images:response.data.results})
   }
